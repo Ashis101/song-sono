@@ -3,9 +3,12 @@ import {genres} from '../assets/constants'
 import {useState} from 'react';
 import {useGetTopchartsQuery} from '../redux/services/shazam_core'
 
+import {useSelector,useDispatch} from 'react-redux';
+
 const Discover = () => {
     const [songType,setSongtype]=useState('pop');
-    
+    const dispatch=useDispatch();
+    const {activeSong,isPlaying}=useSelector((state)=>state.player);
     const {data,isFetching,error}=useGetTopchartsQuery();
     if(isFetching) return <Loader title="Loading Songs...."/>
     const {tracks}=data;
@@ -25,7 +28,14 @@ const Discover = () => {
             <div className="flex flex-wrap sm:justify-start justify-center gap-8">
                {
                 tracks?.map((song,index)=>(
-                    <SongCard key={index} song={song} index={index} />
+                    <SongCard 
+                    key={index} 
+                    song={song} 
+                    index={index} 
+                    isPlaying={isPlaying}
+                    activeSong={activeSong}
+                    data={tracks}
+                    />
                 ))
                }     
             </div>
