@@ -1,0 +1,19 @@
+.container{
+    width: 100%;
+    min-height: 100%;
+    border: 1px solid slategrey;
+    display: flex;
+    flex-direction: row;
+}
+
+.image-container{
+    min-height: 100%;
+    flex: 1;
+    border: 1px solid blue;
+}
+
+.artist{
+    min-height: 100%;
+    flex: 2;
+    border: 1px solid yellow;
+}
