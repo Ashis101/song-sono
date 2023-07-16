@@ -6,12 +6,34 @@ import {useGetTopchartsQuery} from '../redux/services/shazam_core'
 import {useSelector,useDispatch} from 'react-redux';
 
 const Discover = () => {
-    const [songType,setSongtype]=useState('pop');
+    const [songType,setSongtype]=useState('');
     const dispatch=useDispatch();
     const {activeSong,isPlaying}=useSelector((state)=>state.player);
     const {data,isFetching,error}=useGetTopchartsQuery();
     if(isFetching) return <Loader title="Loading Songs...."/>
-    const {tracks}=data;
+    let tracks=data.tracks;
+
+    // switch case use for sorting songs according to selected preference
+    switch (songType) {
+        case "POP":
+            tracks=tracks.slice(0,4).map(song=>song);
+            break;
+        case "HIP_HOP_RAP":
+            tracks=tracks.slice(4,8).map(song=>song);
+            break;
+        case "DANCE":
+            tracks=tracks.slice(8,12).map(song=>song);
+            break;            
+        case "ELECTRONIC":
+            tracks=tracks.slice(12,16).map(song=>song);
+            break;
+        case "SOUL_RNB":
+            tracks=tracks.slice(16,20).map(song=>song);
+            break;
+        default:
+            break;
+    }
+
 
     return(
         <div className="flex flex-col ">
@@ -20,7 +42,7 @@ const Discover = () => {
                 <div className='hidden lg:flex flex-row w-41'>
                     {
                         genres.slice(0,5).map((ele)=>(
-                            <div className="hover:cursor-pointer mr-3 w-100 min-w-10  bg-black bg-opacity-50 text-gray-300 p-3 text-sm rounded-lg"  key={ele.value} value={ele.value}>{ele.title}</div>
+                            <div  onClick={(e)=>setSongtype(e.target.getAttribute('value'))}  className={`hover:cursor-pointer mr-3 w-100 min-w-10  bg-black bg-opacity-50 text-gray-300 p-3 text-sm rounded-lg ${ ele.value == songType ? 'link-active':'' }`}  key={ele.value} value={ele.value}>{ele.title}</div>
                         ))
                     }  
                 </div>
@@ -45,7 +67,9 @@ const Discover = () => {
                     data={tracks}
                     />
                 ))
-               }     
+                
+               }
+            
             </div>
         </div>
     )
