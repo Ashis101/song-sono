@@ -4,6 +4,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 
 import { logo } from "../assets";
 import NavLinks from "./Navlink";
+import Oauth from "./Oauth";
 
 const Sidebar = () => {
   const [mobileMenuOpen,setmobileMenuOpen]=useState(false);
@@ -13,6 +14,8 @@ const Sidebar = () => {
     <div className="md:flex hidden flex-col w-[240px] py-10 px-4 bg-[#191624]">
       <img src={logo} alt="logo" className="w-full h-14 object-contain" />
       <NavLinks />
+      <Oauth />
+
     </div>
     <div className="absolute md:hidden block top-6 right-3">
       {
