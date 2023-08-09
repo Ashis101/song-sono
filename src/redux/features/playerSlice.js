@@ -24,7 +24,7 @@ const playerSlice = createSlice({
         state.currentSongs = action.payload.data;
       }
 
-      state.currentIndex = action.payload.i;
+      state.currentIndex = action.payload.index;
       state.isActive = true;
     },
 
@@ -60,6 +60,8 @@ const playerSlice = createSlice({
   },
 });
 
-export const { setActiveSong, nextSong, prevSong, playPause, selectGenreListId } = playerSlice.actions;
+export const { setActiveSong, 
+  nextSong, prevSong, playPause, 
+  selectGenreListId } = playerSlice.actions;
 
 export default playerSlice.reducer;
